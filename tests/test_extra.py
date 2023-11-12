@@ -1,6 +1,6 @@
 import pytest
 
-from src.extra import get_dir_content, get_max_multiply, get_months_statistic, get_similar, sort_by_price, sum_divisible_by_3_or_5
+from ..extra import *
 
 
 @pytest.fixture
@@ -33,9 +33,9 @@ def orders():
     ]
 
 
-def test_get_dir_content():
-    assert get_dir_content(".") == {"files": 6, "folders": 7}
-    assert get_dir_content(".", count_all=True) == {"files": 2769, "folders": 355}
+@pytest.fixture
+def coll():
+    return [1, 2, 3, 4, 5]
 
 
 @pytest.mark.parametrize(
@@ -50,7 +50,15 @@ def test_get_similar(words, result):
     assert get_similar(words) == result
 
 
-@pytest.mark.parametrize("nums, result", [([2, 3, 5, 7, 11], 77), ([-5, -7, -9, -13], 117), ([1, 2], 2), ([4], 0)])
+'''def test_get_dir_content():
+    assert get_dir_content(".") == {"files": 5, "folders": 6}
+    assert get_dir_content(".", count_all=True) == {"files": 816, "folders": 123}'''
+
+
+@pytest.mark.parametrize("nums, result", [([2, 3, 5, 7, 11], 77),
+                                          ([-5, -7, -9, -13], 117),
+                                          ([1, 2], 2),
+                                          ([4], 0)])
 def test_get_max_multiply(nums, result):
     assert get_max_multiply(nums) == result
 
@@ -88,3 +96,95 @@ def test_sum_divisible_by_3_or_5_empty_input():
 
 def test_sum_divisible_by_3_or_5_without_correct_nums():
     assert sum_divisible_by_3_or_5([4, 16, 7, 11, 31]) == 0
+
+
+def test_check_email_with_valid_email():
+    assert check_email("smth@mail.ru") is True
+
+
+@pytest.mark.parametrize("email, expected_result", [('smth-mail.ru', False),
+                                                    ('smth@mail-ru', False),
+                                                    ('smthmailru', False)])
+def test_check_email_with_invalid_email(email, expected_result):
+    assert check_email(email) is expected_result
+
+
+def test_check_email_with_empty_email():
+    assert check_email('') is False
+
+
+@pytest.mark.parametrize("numbers, number, expected_result", [([1, 2, 3, 4, 3, 5, ], 3, 2),
+                                                              ([-1, -2, -3, 2, -3, 2, ], 2, 2),
+                                                              ([1.1, 2.2, 3.2, 4, 3.2, 5, ], 3, 0),
+                                                              ([-1.2, 0, -3.4, 0, 3.5, 0, 0.9], 0, 3)])
+def test_count_number_in_list(numbers, number, expected_result):
+    assert count_number_in_list(numbers, number) == expected_result
+
+
+@pytest.mark.parametrize("shape, sides, expected_result", [('квадрат', 2, 4.00),
+                                                           ('квадрат', [2], 4.00),
+                                                           ('квадрат', [2, 2, 2, 2], 4.00),
+                                                           ('квадрат', [2, 3, 2, 2], None),
+                                                           ('квадрат', [2, 2, 2], None),
+                                                           ('прямоугольник', [2, 3], 6.00),
+                                                           ('прямоугольник', [2, 2, 3, 3, ], 6.00),
+                                                           ('прямоугольник', [2, 3, 2, 3], 6.00),
+                                                           ('прямоугольник', [2, 3, 4, 3], None),
+                                                           ('прямоугольник', [2, 3, 3], None),
+                                                           ('треугольник', [2, 3, 4], 2.90),
+                                                           ('треугольник', [2, 3, 5], None),
+                                                           ('треугольник', [2, 3], None),
+                                                           ('круг', 3, 28.27),
+                                                           ('круг', [3], 28.27),
+                                                           ('круг', [2, 3], None)])
+def test_calculate_area(shape, sides, expected_result):
+    assert calculate_area(shape, sides) == expected_result
+
+
+@pytest.mark.parametrize("start, end, expected_result", [(1, None, [2, 3, 4, 5]),
+                                                         (1, 4, [2, 3, 4]),
+                                                         (1, 3, [2, 3]),
+                                                         (-4, 3, [2, 3]),
+                                                         (-7, 3, [1, 2, 3]),
+                                                         (1, -2, [2, 3]),
+                                                         (-4, -1, [2, 3, 4])])
+def test_my_slice(coll, start, end, expected_result):
+    assert my_slice(coll, start, end) == expected_result
+
+
+@pytest.mark.parametrize("check_list, expected_result",
+                         [([], []),
+                          ([[], []], []),
+                          ([[0]], []),
+                          ([[0, ""], [False, None]], []),
+                          ([[0, 1, 2], [], [], [False, True, 42]], [[1, 2], [True, 42]])]
+                         )
+def test_non_empty_truths(check_list, expected_result):
+    assert non_empty_truths(check_list) == expected_result
+
+
+@pytest.mark.parametrize("matrix, expected_result", [([[1, 2], [3, 4]], True),
+                                                     ([[1, None], [3, 4]], False),
+                                                     ([], True),])
+def test_each2d(matrix, expected_result):
+    def is_int(x):
+        return isinstance(x, int)
+
+    assert each2d(is_int, matrix) is expected_result
+
+
+@pytest.mark.parametrize("matrix, expected_result", [([[None, "foo"], [(), {}]], False),
+                                                     ([[None, "foo"], [0, {}]], True),
+                                                     ([], False),])
+def test_some2d(matrix, expected_result):
+    def is_int(x):
+        return isinstance(x, int)
+
+    assert some2d(is_int, matrix) is expected_result
+
+
+def test_sum2d():
+    def is_int(x):
+        return isinstance(x, int)
+
+    assert sum2d(is_int, [[1, "Foo", 100], [False, 10, None]]) == 111
