@@ -36,17 +36,3 @@ def memoized(n: int):
         return inner
 
     return wrapped
-
-
-if __name__ == '__main__':
-    @memoized(5)
-    def f(x: int):
-        print('Calculating...')
-        return x * 10
-
-    for i in range(5):
-        print(f(i))
-    for i in range(5):
-        print(f(i))
-    print(f(6))
-    print(f(6))
