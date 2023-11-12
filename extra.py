@@ -4,6 +4,7 @@ from typing import Optional, Callable
 from functools import reduce
 
 
+# masks
 def get_dir_content(path: str = ".", count_all: bool = False) -> dict:
     """
     Функция считает количество директорий и файлов.
@@ -30,6 +31,7 @@ def get_dir_content(path: str = ".", count_all: bool = False) -> dict:
     return content
 
 
+# widget
 def get_similar(words: list[str]) -> list[str]:
     """
     Функция фильтрует список слов
@@ -51,6 +53,7 @@ def get_similar(words: list[str]) -> list[str]:
     return []
 
 
+# widget
 def get_max_multiply(numbers: list[int]) -> int:
     """
     Функция ищет максимальное произведение двух чисел
@@ -69,6 +72,7 @@ def get_max_multiply(numbers: list[int]) -> int:
     return nums[0] * nums[1]
 
 
+# processing
 def sort_by_price(products: list[dict], category: str = None) -> list[dict]:
     """
     Функция сортирует продукты по цене
@@ -87,6 +91,7 @@ def sort_by_price(products: list[dict], category: str = None) -> list[dict]:
     return sorted(products, key=lambda x: x["price"], reverse=True)
 
 
+# processing
 def get_months_statistic(orders: list[dict]) -> dict:
     """
     Функция получает статистику заказов по месяцам
@@ -125,6 +130,7 @@ def get_months_statistic(orders: list[dict]) -> dict:
     return months_statistic
 
 
+# tests
 def sum_divisible_by_3_or_5(lst: list[int]) -> int:
     """
     Функция возвращает сумму всех элементов списка, которые делятся на 3 или  5 без остатка.
@@ -138,6 +144,7 @@ def sum_divisible_by_3_or_5(lst: list[int]) -> int:
     return result
 
 
+# tests
 def check_email(email: Optional[str]) -> bool:
     if email:
 
@@ -150,6 +157,7 @@ def check_email(email: Optional[str]) -> bool:
     return False
 
 
+# tests
 def count_number_in_list(numbers: list[int | float], number: int | float) -> int:
     counter = 0
     for num in numbers:
@@ -160,6 +168,7 @@ def count_number_in_list(numbers: list[int | float], number: int | float) -> int
     return counter
 
 
+# tests
 def calculate_area(shape: str, sides: list[int | float] | int) -> float | None:
     if shape == "квадрат":
 
@@ -208,6 +217,7 @@ def calculate_area(shape: str, sides: list[int | float] | int) -> float | None:
     return None
 
 
+# tests
 def my_slice(coll, start=0, end=None):
     """
     Возвращает новый массив, содержащий копию части исходного массива.
@@ -238,6 +248,7 @@ def my_slice(coll, start=0, end=None):
     return coll[normalized_start:normalized_end]
 
 
+# generators
 def non_empty_truths(elements: list) -> list:
     clear_list = [
         elem
@@ -249,25 +260,31 @@ def non_empty_truths(elements: list) -> list:
     return clear_list
 
 
+# generators
 def each2d(test: Callable, matrix: list[list]):
     return all(False for element in matrix for arg in element if not test(arg))
 
 
+# generators
 def some2d(test: Callable, matrix: list[list]):
     return any(True for element in matrix for arg in element if test(arg))
 
 
+# generators
 def sum2d(test: Callable, matrix: list[list]):
     return sum(arg for element in matrix for arg in element if test(arg))
 
 
+# generators
 def my_map(f, xs):
     return reduce(lambda x, y: x + [f(y)], xs, [])
 
 
+# generators
 def my_filter(f, xs):
     return reduce(lambda x, y: x + [y] if f(y) else x, xs, [])
 
 
+# generators
 def replicate_each(n, xs):
     return reduce(lambda x, y: x + [y] * n, xs, [])
