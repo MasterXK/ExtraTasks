@@ -12,15 +12,21 @@ def get_dir_content(path: str = ".", count_all: bool = False) -> dict:
     :return: словарь с количеством директорий и файлов
     """
     content = {"files": 0, "folders": 0}
+
     for dir_path, dir_names, file_names in os.walk(path):
+
         # перебираем каталоги
         for dir_name in dir_names:
             content["folders"] += 1
+
         # перебираем файлы
         for file_name in file_names:
             content["files"] += 1
+
         if not count_all:
+
             break
+
     return content
 
 
@@ -30,13 +36,18 @@ def get_similar(words: list[str]) -> list[str]:
     :param words: список слов
     :return: список слов с одиннаковой буквой в начале и конце
     """
-    simillar_start_end_words = []
+    similar_start_end_words = []
     if words:
+
         for word in words:
             if word:
+
                 if word[0] == word[-1]:
-                    simillar_start_end_words.append(word)
-        return simillar_start_end_words
+
+                    similar_start_end_words.append(word)
+
+        return similar_start_end_words
+
     return []
 
 
@@ -48,9 +59,13 @@ def get_max_multiply(numbers: list[int]) -> int:
     """
     nums = sorted(numbers)
     if len(nums) < 2:
+
         return 0
+
     if nums[-1] * nums[-2] > nums[0] * nums[1]:
+
         return nums[-1] * nums[-2]
+
     return nums[0] * nums[1]
 
 
@@ -62,9 +77,11 @@ def sort_by_price(products: list[dict], category: str = None) -> list[dict]:
     :return: отсортированный список продуктов выбранной категории
     """
     if category:
+
         products_to_sort = [
             product for product in products if product["category"] == category
         ]
+
         return sorted(products_to_sort, key=lambda x: x["price"], reverse=True)
 
     return sorted(products, key=lambda x: x["price"], reverse=True)
@@ -81,17 +98,22 @@ def get_months_statistic(orders: list[dict]) -> dict:
     pattern_out = "%Y.%m"
 
     for order in orders:
+
         date_in = datetime.strptime(order["date"], pattern_in)
         date = date_in.strftime(pattern_out)
 
         if date in months_statistic.keys():
+
             months_statistic[date]["order_count"] += 1
+
             for item in order["items"]:
                 months_statistic[date]["average_order_value"] += (
                     item["price"] * item["quantity"]
                 )
         else:
+
             for item in order["items"]:
+
                 months_statistic[date] = {
                     "average_order_value": item["price"] * item["quantity"],
                     "order_count": 1,
@@ -118,26 +140,34 @@ def sum_divisible_by_3_or_5(lst: list[int]) -> int:
 
 def check_email(email: Optional[str]) -> bool:
     if email:
+
         if "@" in email:
+
             if "." in email[email.index("@") + 1 :]:
+
                 return True
+
     return False
 
 
 def count_number_in_list(numbers: list[int | float], number: int | float) -> int:
     counter = 0
     for num in numbers:
+
         if num == number:
             counter += 1
+
     return counter
 
 
 def calculate_area(shape: str, sides: list[int | float] | int) -> float | None:
     if shape == "квадрат":
+
         if type(sides) is int:
             return round(sides**2, 2)
 
         if type(sides) is list:
+
             if all(x == sides[0] for x in sides[1:]) and len(sides) in [1, 4]:
                 return round(sides[0] ** 2, 2)
 
@@ -198,8 +228,10 @@ def my_slice(coll, start=0, end=None):
     normalized_start = start
 
     if normalized_start < 0:
+
         if normalized_start < -length:
             normalized_start = 0
+
         else:
             normalized_start += length
 
@@ -239,7 +271,3 @@ def my_filter(f, xs):
 
 def replicate_each(n, xs):
     return reduce(lambda x, y: x + [y] * n, xs, [])
-
-
-if __name__ == '__main__':
-    print(list(replicate_each(3, [1, 'a'])))
