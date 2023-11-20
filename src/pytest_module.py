@@ -17,11 +17,8 @@ def sum_divisible_by_3_or_5(lst: list[int]) -> int:
 # tests
 def check_email(email: Optional[str]) -> bool:
     if email:
-
         if "@" in email:
-
-            if "." in email[email.index("@") + 1:]:
-
+            if "." in email[email.index("@") + 1 :]:
                 return True
 
     return False
@@ -31,7 +28,6 @@ def check_email(email: Optional[str]) -> bool:
 def count_number_in_list(numbers: list[int | float], number: int | float) -> int:
     counter = 0
     for num in numbers:
-
         if num == number:
             counter += 1
 
@@ -41,12 +37,10 @@ def count_number_in_list(numbers: list[int | float], number: int | float) -> int
 # tests
 def calculate_area(shape: str, sides: list[int | float] | int) -> float | None:
     if shape == "квадрат":
-
         if type(sides) is int:
             return round(sides**2, 2)
 
         if type(sides) is list:
-
             if all(x == sides[0] for x in sides[1:]) and len(sides) in [1, 4]:
                 return round(sides[0] ** 2, 2)
 
@@ -108,7 +102,6 @@ def my_slice(coll, start=0, end=None):
     normalized_start = start
 
     if normalized_start < 0:
-
         if normalized_start < -length:
             normalized_start = 0
 

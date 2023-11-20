@@ -1,4 +1,5 @@
 import pytest
+
 from src.processing import *
 
 
@@ -25,10 +26,26 @@ def orders():
                 {"name": "", "price": 4, "quantity": 5},
             ],
         },
-        {"id": "2", "date": "2019-05-03T18:35:29.512364", "items": [{"name": "", "price": 2, "quantity": 3}]},
-        {"id": "3", "date": "2019-05-06T18:35:29.512364", "items": [{"name": "", "price": 3, "quantity": 3}]},
-        {"id": "4", "date": "2019-07-10T18:35:29.512364", "items": [{"name": "", "price": 3, "quantity": 2}]},
-        {"id": "5", "date": "2019-07-12T18:35:29.512364", "items": [{"name": "", "price": 10, "quantity": 1}]},
+        {
+            "id": "2",
+            "date": "2019-05-03T18:35:29.512364",
+            "items": [{"name": "", "price": 2, "quantity": 3}],
+        },
+        {
+            "id": "3",
+            "date": "2019-05-06T18:35:29.512364",
+            "items": [{"name": "", "price": 3, "quantity": 3}],
+        },
+        {
+            "id": "4",
+            "date": "2019-07-10T18:35:29.512364",
+            "items": [{"name": "", "price": 3, "quantity": 2}],
+        },
+        {
+            "id": "5",
+            "date": "2019-07-12T18:35:29.512364",
+            "items": [{"name": "", "price": 10, "quantity": 1}],
+        },
     ]
 
 

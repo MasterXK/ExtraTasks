@@ -12,12 +12,10 @@ def get_months_statistic(orders: list[dict]) -> dict:
     pattern_out = "%Y.%m"
 
     for order in orders:
-
         date_in = datetime.strptime(order["date"], pattern_in)
         date = date_in.strftime(pattern_out)
 
         if date in months_statistic.keys():
-
             months_statistic[date]["order_count"] += 1
 
             for item in order["items"]:
@@ -25,9 +23,7 @@ def get_months_statistic(orders: list[dict]) -> dict:
                     item["price"] * item["quantity"]
                 )
         else:
-
             for item in order["items"]:
-
                 months_statistic[date] = {
                     "average_order_value": item["price"] * item["quantity"],
                     "order_count": 1,
@@ -47,7 +43,6 @@ def sort_by_price(products: list[dict], category: str = None) -> list[dict]:
     :return: отсортированный список продуктов выбранной категории
     """
     if category:
-
         products_to_sort = [
             product for product in products if product["category"] == category
         ]

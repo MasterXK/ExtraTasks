@@ -1,4 +1,5 @@
 import os
+
 from data import PATH_DATA
 
 
@@ -12,7 +13,6 @@ def get_dir_content(path: str = ".", count_all: bool = False) -> dict:
     content = {"files": 0, "folders": 0}
 
     for dir_path, dir_names, file_names in os.walk(path):
-
         # перебираем каталоги
         for dir_name in dir_names:
             content["folders"] += 1
@@ -22,7 +22,6 @@ def get_dir_content(path: str = ".", count_all: bool = False) -> dict:
             content["files"] += 1
 
         if not count_all:
-
             break
 
     return content

@@ -1,5 +1,5 @@
-from typing import Callable
 from functools import reduce
+from typing import Callable
 
 
 def each2d(test: Callable, matrix: list[list]):
