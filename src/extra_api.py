@@ -84,6 +84,40 @@ def log_messages(level: str, message: str) -> None:
         logging.critical(message)
 
 
-log_messages("info", "Это информационное сообщение.")
-log_messages("warning", "Это предупреждение.")
-log_messages("error", "Это ошибка.")
+def download_photos(album_id: int, limit: int=100):
+    logging.basicConfig(level=logging.INFO)
+    logging.info('Starting app...')
+
+    url = 'https://jsonplaceholder.typicode.com/photos'
+
+    try:
+        response = requests.get(url)
+        data = response.json()
+
+    except requests.exceptions.RequestException as e:
+        logging.info(f'An error has occurred: {e}', exc_info=True)
+        return e
+
+    i = 0
+    while True:
+        if data[i]['albumId'] == album_id:
+
+            logging.info(f'Downloading album {album_id} images...')
+            for j in range(limit):
+                if data[i + j]['albumId'] != album_id:
+                    logging.info(f'Finished downloading images. Total images downloaded: {j}')
+                    break
+
+                pic = requests.get(data[j - 1]['url'])
+
+                logging.info(f'Saving image {j + 1} to data/photos/{album_id}-{j + 1}.jpg')
+                with open(os.path.join(PATH_DATA, 'photos', f'{album_id}-{j + 1}.jpg'), 'wb') as p:
+                    p.write(pic.content)
+
+            logging.info(f'Finished downloading images. Total images downloaded: {j + 1}')
+            break
+
+        i += 1
+
+
+download_photos(2, 5)
